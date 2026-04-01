@@ -1,4 +1,6 @@
-<x-layout><br><br><br><br>    
+<x-layout>
+  <h1>Welcome to homepage</h1>
+  <br><br><br><br>    
     <div class="border-b border-white/10 pb-12">
       <h2 class="text-base/7 font-semibold text-white">Personal Information</h2>
       <p class="mt-1 text-sm/6 text-gray-400">Use a permanent address where you can receive mail.</p>
