@@ -14,49 +14,12 @@ Route::view('/', 'welcome', [
 ]);
 
 
-Route::get('/formtest', function(){
-    $emails = session()->get('$emails', []);
+use App\Http\Controllers\EmailController;
 
-    return view('formtest',[
-        'emails' => $emails,
-    ]);
-});
-
-Route::post('/formtest', function(){
-    // Task 2: Validation
-    request()->validate([
-        'email' => ['required', 'email']
-    ]);
-
-    $email = request('email');
-    $emails = session()->get('$emails', []);
-
-    // Task 3: Prevent Duplicates
-    if (in_array($email, $emails)) {
-        return redirect('/formtest')->with('error', 'That email is already in the list!');
-    }
-
-    // Task 6: Limit Entries
-    if (count($emails) >= 5) {
-        return redirect('/formtest')->with('error', 'Limit reached! (Max 5)');
-    }
-
-    session()->push('$emails', $email);
-
-    return redirect('/formtest')->with('success', 'Email added successfully!');
-});
-
-Route::post('/delete-email/{index}', function($index){
-    $emails = session()->get('$emails', []);
-    
-    if (isset($emails[$index])) {
-        unset($emails[$index]);
-        // Re-index the array so there are no gaps
-        session()->put('$emails', array_values($emails));
-    }
-
-    return redirect('/formtest');
-});
+Route::get('/formtest', [EmailController::class, 'index']);
+Route::post('/formtest', [EmailController::class, 'store']);
+Route::post('/delete-email/{index}', [EmailController::class, 'destroy']);
+Route::post('/clear-emails', [EmailController::class, 'clear']);
 
 Route::get('/', function () {
     return view('welcome');
