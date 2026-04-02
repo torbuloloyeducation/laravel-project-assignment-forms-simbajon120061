@@ -35,7 +35,7 @@
                     @csrf
                     <button type="submit" 
                             onclick="return confirm('Are you sure you want to delete everything?')"
-                            class="rounded-md  bg-red-500 text-white-400 hover:bg-red-600 px-3 py-2 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
+                            class="rounded-md  bg-red-500 text-white-400 hover:bg-red-700 px-3 py-2 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
                         Clear All Emails
                     </button>
                 </form>
