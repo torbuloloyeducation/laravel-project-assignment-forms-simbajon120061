@@ -13,26 +13,35 @@ Route::view('/', 'welcome', [
     ],
 ]);
 
-Route::view('/about', 'about');
-Route::view('/contact', 'contact');
 
-Route::get('/formtest', function(){
-    $emails = session()->get('$emails', []);
+use App\Http\Controllers\EmailController;
 
-    return view('formtest',[
-        'emails' => $emails,
-    ]);
+Route::get('/formtest', [EmailController::class, 'index']);
+Route::post('/formtest', [EmailController::class, 'store']);
+Route::post('/delete-email/{index}', [EmailController::class, 'destroy']);
+Route::post('/clear-emails', [EmailController::class, 'clear']);
+
+Route::get('/', function () {
+    return view('welcome');
 });
 
-Route::post('/formtest', function(){
-    $email = request('email');
 
-    session()->push('$emails', $email);
-
-    return redirect('/formtest');
+Route::get('/about', function () {
+    return view('about');
 });
 
-Route::get('/delete-emails', function(){
-    session()->forget('$emails');
-    return redirect('/formtest');
+Route::get('/contact', function () {
+    return view('contact');
+});
+
+Route::get('/services', function () {
+    return view('services');
+});
+
+Route::get('/showcases', function () {
+    return view('showcases');
+});
+
+Route::get('/blog', function () {
+    return view('blog');
 });
